@@ -40,10 +40,14 @@
           <v-col
             cols="12"
             sm="8"
+            class="d-flex flex-row justify-center"
+            width="500"
           >
             <v-sheet
               min-height="70vh"
               rounded="lg"
+              width="500"
+              style="background: #EEEEEE"
             >
               <Feed></Feed>
             </v-sheet>
