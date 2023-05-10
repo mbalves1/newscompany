@@ -1,8 +1,7 @@
 <template>
   <v-card
-    width="500" v-for="item in news" :key="item"
-    class="mx-auto mb-4"
-    max-width="500"
+    v-for="(item, index) in news" :key="item"
+    class="mx-auto mb-4 card-container"
     flat
   >
     <v-img
@@ -10,7 +9,7 @@
       cover
     ></v-img>
 
-    <v-card-title>
+    <v-card-title style="white-space: initial">
       {{item.title}}
     </v-card-title>
 
@@ -22,7 +21,7 @@
       <v-btn
         color="orange-lighten-2"
         variant="text"
-        @click="show = !show"
+        @click="openInfos(index)"
       >
         Explore
       </v-btn>
@@ -31,12 +30,12 @@
 
       <v-btn
         :icon="show ? 'mdi-chevron-up' : 'mdi-chevron-down'"
-        @click="show = !show"
+        @click="openInfos(index)"
       ></v-btn>
     </v-card-actions>
 
     <v-expand-transition>
-      <div v-show="show">
+      <div v-show="item.show">
         <v-divider></v-divider>
 
         <v-card-text>
@@ -64,6 +63,10 @@ export default {
       // console.log(news);
     })
 
+    const openInfos = (index) => {
+      news.value.forEach((item, i) => item.show = i === index ? !item.show : false);
+    }
+
     const formatDate = (item) =>  {
       let date = new Date(item)
       return format(date, 'dd/MM/yyyy');
@@ -72,7 +75,8 @@ export default {
     return {
       news,
       formatDate,
-      show
+      show,
+      openInfos
     }
   }
 }
