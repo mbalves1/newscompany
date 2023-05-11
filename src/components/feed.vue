@@ -40,7 +40,7 @@
       ></v-btn>
 
       <v-btn
-        :icon="!item.favorite ? 'mdi-heart-outline' : 'mdi-heart'"
+        :icon="item.favorite ? 'mdi-heart' : 'mdi-heart-outline'"
         :color="item.favorite ? 'red' : 'black'"
         @click="favorite(index)"
       ></v-btn>
@@ -85,17 +85,18 @@ export default {
     // }
 
     const favorite = (index) => {
-      let newItem = news.value.forEach((item, i) => {
-        if (item.favorite = i === index) {
-          console.log("item>>", item);
-          // postFavorite(item)
-          favoriteNews.value.push(item)
-          !item.favorite
-          console.log("favoriteNews", favoriteNews.value);
-        } else {
-          item.favorite = false
+      const item = news.value[index];
+
+      if (!item.favorite) {
+        favoriteNews.value.push(item);
+        item.favorite = true;
+      } else {
+        const itemIndex = favoriteNews.value.findIndex((favItem) => favItem === item);
+        if (itemIndex !== -1) {
+          favoriteNews.value.splice(itemIndex, 1);
+          item.favorite = false;
         }
-      })
+      }
     }
 
     const formatDate = (item) =>  {
