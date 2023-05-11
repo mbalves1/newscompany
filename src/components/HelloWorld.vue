@@ -33,7 +33,7 @@
               rounded="lg"
               min-height="268"
             >
-              <!--  -->
+              <span>{{favoriteNews}}</span>
             </v-sheet>
           </v-col>
 
@@ -60,17 +60,27 @@
 
 <script>
 import Feed from './feed.vue'
-  export default {
-    data: () => ({
-      links: [
-        'Dashboard',
-        'Messages',
-        'Profile',
-        'Updates',
-      ],
-    }),
-    components: {
-      Feed
-    }
+import { useStore } from 'vuex'
+import { computed } from 'vue'
+
+export default {
+  data: () => ({
+    links: [
+      'Dashboard',
+      'Messages',
+      'Profile',
+      'Updates',
+    ],
+  }),
+  components: {
+    Feed
+  },
+  setup() {
+    const store = useStore()
+
+    const favoriteNews = computed(() => store.state.favoriteNews)
+
+    return {favoriteNews}
   }
+}
 </script>

@@ -3,14 +3,17 @@ import axios from 'axios'
 
 export default createStore({
   state: {
-    news: []
+    news: [],
+    favoriteNews: []
   },
   getters: {
   },
   mutations: {
     GET_NEWS(state, data) {
-      console.log(data)
       state.news = data
+    },
+    POST_FAVORITE(state, data) {
+      state.favorite.push(data)
     }
   },
   actions: {
@@ -21,10 +24,15 @@ export default createStore({
         .then(response => {
           const { data } = response
           const { articles } = data
-          store.commit('GET_NEWS', articles)
+          store.commit('GET_NEWS', articles.slice(0, 10))
           return articles
         })
         .catch((error) => console.log(error))
+    },
+    postFavorite(item) {
+      const store = useStore()
+      console.log(store)
+      store.commit('POST_FAVORITE', item)
     }
   },
   modules: {

@@ -11,11 +11,17 @@
 
     <v-card-title style="white-space: initial">
       {{item.title}}
+      <!-- <pre>{{item}}</pre> -->
     </v-card-title>
 
-    <v-card-subtitle>
-      <sup>{{formatDate(item.publishedAt)}}</sup>
+    <v-card-subtitle class="d-flex flex-column">
+      <span>{{item.author}}</span>
+      <span>{{formatDate(item.publishedAt)}}</span>
     </v-card-subtitle>
+
+    <v-card-text>
+      <p class="mb-3">{{item.description}}</p>
+    </v-card-text>
 
     <v-card-actions>
       <v-btn
@@ -29,8 +35,14 @@
       <v-spacer></v-spacer>
 
       <v-btn
-        :icon="show ? 'mdi-chevron-up' : 'mdi-chevron-down'"
+        :icon="item.show ? 'mdi-chevron-up' : 'mdi-chevron-down'"
         @click="openInfos(index)"
+      ></v-btn>
+
+      <v-btn
+        :icon="!item.favorite ? 'mdi-heart-outline' : 'mdi-heart'"
+        :color="item.favorite ? 'red' : 'black'"
+        @click="favorite(index)"
       ></v-btn>
     </v-card-actions>
 
@@ -39,7 +51,7 @@
         <v-divider></v-divider>
 
         <v-card-text>
-          <p class="mb-3">{{item.description}}</p>
+          <p class="mb-3">{{item.content}}</p>
           <a :href="item.url">{{item.url}}</a>
         </v-card-text>
       </div>
@@ -56,6 +68,7 @@ export default {
     const store = useStore()
 
     const news = computed(() => store.state.news)
+    const favoriteNews = computed(() => store.state.favoriteNews)
     const show = ref(false)
 
     onMounted(() => {
@@ -67,6 +80,24 @@ export default {
       news.value.forEach((item, i) => item.show = i === index ? !item.show : false);
     }
 
+    // const postFavorite = (item) => {
+    //   store.dispatch('postFavorite', item)
+    // }
+
+    const favorite = (index) => {
+      let newItem = news.value.forEach((item, i) => {
+        if (item.favorite = i === index) {
+          console.log("item>>", item);
+          // postFavorite(item)
+          favoriteNews.value.push(item)
+          !item.favorite
+          console.log("favoriteNews", favoriteNews.value);
+        } else {
+          item.favorite = false
+        }
+      })
+    }
+
     const formatDate = (item) =>  {
       let date = new Date(item)
       return format(date, 'dd/MM/yyyy');
@@ -76,7 +107,8 @@ export default {
       news,
       formatDate,
       show,
-      openInfos
+      openInfos,
+      favorite
     }
   }
 }
