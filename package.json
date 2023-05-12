@@ -16,7 +16,6 @@
     "date-fns": "^2.30.0",
     "register-service-worker": "^1.7.2",
     "roboto-fontface": "*",
-    "vanilla-tilt-vue": "^0.1.3",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vuetify": "^3.0.0-beta.0",

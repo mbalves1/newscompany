@@ -49,12 +49,10 @@
     <v-expand-transition>
       <div v-show="item.show">
         <v-divider></v-divider>
-        <Tilt>
-          <v-card-text>
-            <p class="mb-3">{{item.content}}</p>
-            <a :href="item.url">{{item.url}}</a>
-          </v-card-text>
-        </Tilt>
+        <v-card-text>
+          <p class="mb-3">{{item.content}}</p>
+          <a :href="item.url">{{item.url}}</a>
+        </v-card-text>
       </div>
       
     </v-expand-transition>
@@ -64,7 +62,6 @@
 import { useStore } from 'vuex'
 import { computed, onMounted, ref } from 'vue'
 import { format } from 'date-fns'
-import Tilt from 'vanilla-tilt-vue'
 
 export default {
   props: {
@@ -72,9 +69,6 @@ export default {
       type: String,
       default: "feed"
     }
-  },
-  components: {
-    Tilt
   },
   setup(props) {
     const store = useStore()
