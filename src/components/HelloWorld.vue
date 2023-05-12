@@ -11,12 +11,14 @@
       <v-tabs
         centered
         color="grey-darken-2"
+        v-model="tab"
       >
         <v-tab
           v-for="link in links"
           :key="link"
+          :value="link.id"
         >
-          {{ link }}
+          <v-icon class="pr-5">{{link.icon}}</v-icon>{{ link.name }}
         </v-tab>
       </v-tabs>
       <v-spacer></v-spacer>
@@ -33,7 +35,10 @@
               rounded="lg"
               min-height="268"
             >
-              <span>{{favoriteNews}}</span>
+              <v-col class="d-flex flex-column">
+                <span>Feed {{news.length}}</span>
+                <span>Favorites {{favoriteNews.length}}</span>
+              </v-col>
             </v-sheet>
           </v-col>
 
@@ -41,15 +46,16 @@
             cols="12"
             sm="8"
             class="d-flex flex-row justify-center"
-            width="500"
+
           >
             <v-sheet
               min-height="70vh"
               rounded="lg"
-              width="500"
+              max-width="500"
+              class="responsive"
               style="background: #EEEEEE"
             >
-              <Feed></Feed>
+              <Feed :is-feed="tab" ></Feed>
             </v-sheet>
           </v-col>
         </v-row>
@@ -61,15 +67,13 @@
 <script>
 import Feed from './feed.vue'
 import { useStore } from 'vuex'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 export default {
   data: () => ({
     links: [
-      'Dashboard',
-      'Messages',
-      'Profile',
-      'Updates',
+      {name: 'Feed', id: 1, icon: 'mdi-movie-roll'},
+      {name: 'Favorites', id: 2, icon: 'mdi-heart'},
     ],
   }),
   components: {
@@ -77,10 +81,24 @@ export default {
   },
   setup() {
     const store = useStore()
+    let tab = ref("")
 
     const favoriteNews = computed(() => store.state.favoriteNews)
+    const news = computed(() => store.state.news)
 
-    return {favoriteNews}
+    return {
+      favoriteNews,
+      news,
+      tab
+    }
   }
 }
 </script>
+<style scoped>
+@media screen and (max-width: 400px) {
+  .responsive {
+    width: 100%;
+    padding: 0 5px;
+  }
+}
+</style>

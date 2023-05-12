@@ -1,6 +1,6 @@
 <template>
   <v-card
-    v-for="(item, index) in news" :key="item"
+    v-for="(item, index) in dataFeed" :key="item"
     class="mx-auto mb-4 card-container"
     flat
   >
@@ -33,7 +33,7 @@
       </v-btn>
 
       <v-spacer></v-spacer>
-
+      
       <v-btn
         :icon="item.show ? 'mdi-chevron-up' : 'mdi-chevron-down'"
         @click="openInfos(index)"
@@ -49,12 +49,14 @@
     <v-expand-transition>
       <div v-show="item.show">
         <v-divider></v-divider>
-
-        <v-card-text>
-          <p class="mb-3">{{item.content}}</p>
-          <a :href="item.url">{{item.url}}</a>
-        </v-card-text>
+        <Tilt>
+          <v-card-text>
+            <p class="mb-3">{{item.content}}</p>
+            <a :href="item.url">{{item.url}}</a>
+          </v-card-text>
+        </Tilt>
       </div>
+      
     </v-expand-transition>
   </v-card>
 </template>
@@ -62,9 +64,19 @@
 import { useStore } from 'vuex'
 import { computed, onMounted, ref } from 'vue'
 import { format } from 'date-fns'
+import Tilt from 'vanilla-tilt-vue'
 
 export default {
-  setup() {
+  props: {
+    isFeed: {
+      type: String,
+      default: "feed"
+    }
+  },
+  components: {
+    Tilt
+  },
+  setup(props) {
     const store = useStore()
 
     const news = computed(() => store.state.news)
@@ -83,6 +95,11 @@ export default {
     // const postFavorite = (item) => {
     //   store.dispatch('postFavorite', item)
     // }
+
+    const dataFeed = computed(() => {
+      console.log(props);
+      return props.isFeed === 1 ? news.value : favoriteNews.value
+    })
 
     const favorite = (index) => {
       const item = news.value[index];
@@ -109,7 +126,8 @@ export default {
       formatDate,
       show,
       openInfos,
-      favorite
+      favorite,
+      dataFeed
     }
   }
 }
