@@ -4,6 +4,7 @@ import axios from 'axios'
 export default createStore({
   state: {
     news: [],
+    newsMoreRead: [],
     favoriteNews: []
   },
   getters: {
@@ -11,6 +12,10 @@ export default createStore({
   mutations: {
     GET_NEWS(state, data) {
       state.news = data
+    },
+    GET_NEWS_MORE_READ(state, data) {
+      console.log(data);
+      state.newsMoreRead = data
     },
     POST_FAVORITE(state, data) {
       state.favorite.push(data)
@@ -25,6 +30,18 @@ export default createStore({
           const { data } = response
           const { articles } = data
           store.commit('GET_NEWS', articles.slice(0, 10))
+          return articles
+        })
+        .catch((error) => console.log(error))
+    },
+    getNewsMoreReaded() {
+      const store = useStore()
+      axios.get('https://gnews.io/api/v4/search?q=example&lang=en&country=us&max=10&apikey=91f3684377e7a5129f2879dae7b375d6')
+        .then(response => {
+          const { data } = response
+          const { articles } = data
+          console.log("response", articles);
+          store.commit('GET_NEWS_MORE_READ', articles)
           return articles
         })
         .catch((error) => console.log(error))

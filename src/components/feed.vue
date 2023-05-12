@@ -5,7 +5,7 @@
     flat
   >
     <v-img
-      :src="item.urlToImage"
+      :src="isFeed === 3 ? item.image : item.urlToImage"
       cover
     ></v-img>
 
@@ -40,6 +40,7 @@
       ></v-btn>
 
       <v-btn
+        v-if="isFeed !== 1"
         :icon="item.favorite ? 'mdi-heart' : 'mdi-heart-outline'"
         :color="item.favorite ? 'red' : 'black'"
         @click="favorite(index)"
@@ -75,15 +76,29 @@ export default {
 
     const news = computed(() => store.state.news)
     const favoriteNews = computed(() => store.state.favoriteNews)
+    const newsMoreRead = computed(() => {
+      console.log(store);
+      return store.state.newsMoreRead
+    })
     const show = ref(false)
 
     onMounted(() => {
-      store.dispatch('getNews')
-      // console.log(news);
+      getNew()
+      getNewMoreRead()
+      newsMoreRead
     })
+
+    const getNew = () => {
+      store.dispatch('getNews')
+    }
+
+    const getNewMoreRead = () => {
+      store.dispatch('getNewsMoreReaded')
+    }
 
     const openInfos = (index) => {
       news.value.forEach((item, i) => item.show = i === index ? !item.show : false);
+      newsMoreRead.value.forEach((item, i) => item.show = i === index ? !item.show : false);
     }
 
     // const postFavorite = (item) => {
@@ -91,21 +106,21 @@ export default {
     // }
 
     const dataFeed = computed(() => {
-      console.log(props);
-      return props.isFeed === 1 ? news.value : favoriteNews.value
+      return props.isFeed === 1 ? news.value : props.isFeed === 2 ? favoriteNews.value : newsMoreRead.value
     })
 
     const favorite = (index) => {
-      const item = news.value[index];
+      const itemMore = newsMoreRead.value[index];
 
-      if (!item.favorite) {
-        favoriteNews.value.push(item);
-        item.favorite = true;
+      if (!itemMore.favorite) {
+        
+        favoriteNews.value.push(itemMore);
+        itemMore.favorite = true;
       } else {
-        const itemIndex = favoriteNews.value.findIndex((favItem) => favItem === item);
+        const itemIndex = favoriteNews.value.findIndex((favItem) => favItem === itemMore);
         if (itemIndex !== -1) {
           favoriteNews.value.splice(itemIndex, 1);
-          item.favorite = false;
+          itemMore.favorite = false;
         }
       }
     }
@@ -119,6 +134,7 @@ export default {
       news,
       formatDate,
       show,
+      newsMoreRead,
       openInfos,
       favorite,
       dataFeed

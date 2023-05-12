@@ -72,8 +72,9 @@ import { computed, ref } from 'vue'
 export default {
   data: () => ({
     links: [
-      {name: 'Feed', id: 1, icon: 'mdi-movie-roll'},
+      {name: 'Mais Lidas', id: 3, icon: 'mdi-book-open'},
       {name: 'Favorites', id: 2, icon: 'mdi-heart'},
+      {name: 'Feed', id: 1, icon: 'mdi-movie-roll'},
     ],
   }),
   components: {
@@ -85,10 +86,12 @@ export default {
 
     const favoriteNews = computed(() => store.state.favoriteNews)
     const news = computed(() => store.state.news)
+    const newsMoreRead = computed(() => store.state.newsMoreRead)
 
     return {
       favoriteNews,
       news,
+      newsMoreRead,
       tab
     }
   }
