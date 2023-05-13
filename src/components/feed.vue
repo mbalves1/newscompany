@@ -5,7 +5,7 @@
     flat
   >
     <v-img
-      :src="isFeed === 3 ? item.image : item.urlToImage"
+      :src="isFeed !== 1 ? item.image : item.urlToImage"
       cover
     ></v-img>
 
