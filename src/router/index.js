@@ -4,12 +4,12 @@ import Initial from '../views/Initial.vue'
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'initial',
     component: Initial
   },
   {
-    path: '/home',
+    path: '/',
     name: 'home',
     component: HomeView
   },
