@@ -9,7 +9,7 @@
       cover
     ></v-img>
 
-    <v-card-title style="white-space: initial">
+    <v-card-title class="removed" style="white-space: initial">
       {{item.title}}
       <!-- <pre>{{item}}</pre> -->
     </v-card-title>
@@ -142,3 +142,12 @@ export default {
   }
 }
 </script>
+<style scoped>
+.v-card .v-card-subtitle .v-card-title {
+  line-height: 15px !important;
+}
+
+.removed {
+  line-height: 15px !important;
+}
+</style>

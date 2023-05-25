@@ -5,7 +5,12 @@ export default createStore({
   state: {
     news: [],
     newsMoreRead: [],
-    favoriteNews: []
+    favoriteNews: [],
+    links: [
+      {name: 'Mais Lidas', id: 3, icon: 'mdi-book-open'},
+      {name: 'Favorites', id: 2, icon: 'mdi-heart'},
+      {name: 'Feed', id: 1, icon: 'mdi-movie-roll'},
+    ],
   },
   getters: {
   },

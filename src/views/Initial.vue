@@ -2,10 +2,10 @@
   <v-app class="banner">
     <v-card max-height="300px" height="300" flat class="roundel lessBan ml-4">oal</v-card>
     <div class="cards">
-      <v-card v-for="card in 6" :key="card" min-width="100" height="102" style="background: #8FBF9F" class="card">
-        <v-col class="d-flex flex-column justify-space-around align-center">
-          <v-icon>mdi-heart</v-icon>
-          <span>Favrite</span>
+      <v-card v-for="card in links" :key="card" min-width="100" height="102" style="background: #8FBF9F" class="card">
+        <v-col class="d-flex flex-column justify-space-around align-center mt-4">
+          <v-icon class="pr-5 ml-5">{{card.icon}}</v-icon>
+          <span class="f-size-12 mt-3">{{ card.name }}</span>
         </v-col>
       </v-card>
     </div>
@@ -53,6 +53,38 @@
         </v-card>
       </div>
     </v-col>
+
+    <v-col>
+      <h3>Feed</h3>
+      <v-row>
+        <v-col :cols="6" v-for="card in dataFeedSecond" :key="card" class="">
+          <v-card flat class="lessBan">
+            <div class="d-flex flex-no-wrap justify-space-between flex-column">
+              <v-avatar
+                class=""
+                :style="{ width: '100%', height: '100%' }"
+                rounded="0"
+              >
+                <v-img
+                  :src="card.image"
+                  cover
+                  :style="{ width: '100%', height: '100%' }"
+                ></v-img>
+              </v-avatar>
+              <div>
+                <v-card-title class="f-size-12 tesst">
+                  <p>{{card.title}}</p>
+                </v-card-title>
+
+                <v-card-subtitle class="f-size-10 tesst">
+                  {{card.description}}
+                </v-card-subtitle>
+              </div>
+            </div>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-col>
   </v-app>
 </template>
 
@@ -77,6 +109,10 @@ export default {
       console.log(store);
       return store.state.newsMoreRead
     })
+    const links = computed(() => {
+      console.log(store.state.links);
+      return store.state.links
+    })
     const show = ref(false)
 
     onMounted(() => {
@@ -98,10 +134,9 @@ export default {
       newsMoreRead.value.forEach((item, i) => item.show = i === index ? !item.show : false);
     }
 
-    const dataFeed = computed(() => {
-      console.log(">>", newsMoreRead.value.slice(0, 2));
-      return newsMoreRead.value.slice(0, 2)
-    })
+    const dataFeed = computed(() => newsMoreRead.value.slice(0, 2))
+
+    const dataFeedSecond = computed(() => newsMoreRead.value.slice(2, 7))
 
     const formatDate = (item) =>  {
       let date = new Date(item)
@@ -111,10 +146,12 @@ export default {
     return {
       news,
       formatDate,
+      links,
       show,
       newsMoreRead,
       openInfos,
-      dataFeed
+      dataFeed,
+      dataFeedSecond
     }
   }
 }
@@ -158,6 +195,8 @@ export default {
 }
 
 .tesst {
+  line-height: 15px;
   white-space: initial;
 }
+
 </style>
