@@ -43,7 +43,7 @@
         v-if="isFeed !== 1"
         :icon="item.favorite ? 'mdi-heart' : 'mdi-heart-outline'"
         :color="item.favorite ? 'red' : 'black'"
-        @click="favorite(index)"
+        @click="favorite(item)"
       ></v-btn>
     </v-card-actions>
 
@@ -76,10 +76,7 @@ export default {
 
     const news = computed(() => store.state.news)
     const favoriteNews = computed(() => store.state.favoriteNews)
-    const newsMoreRead = computed(() => {
-      console.log(store);
-      return store.state.newsMoreRead
-    })
+    const newsMoreRead = computed(() => store.state.newsMoreRead)
     const show = ref(false)
 
     onMounted(() => {
@@ -101,28 +98,40 @@ export default {
       newsMoreRead.value.forEach((item, i) => item.show = i === index ? !item.show : false);
     }
 
-    // const postFavorite = (item) => {
-    //   store.dispatch('postFavorite', item)
-    // }
-
     const dataFeed = computed(() => {
       return props.isFeed === 1 ? news.value : props.isFeed === 2 ? favoriteNews.value : newsMoreRead.value
     })
 
-    const favorite = (index) => {
-      const itemMore = newsMoreRead.value[index];
-
-      if (!itemMore.favorite) {
-        
-        favoriteNews.value.push(itemMore);
-        itemMore.favorite = true;
+    const favorite = (item) => {
+      console.log("item", item);
+      favoriteNews.value.map(i => {
+        console.log(":>", i);
+      })
+      if (!item.id) {
+        item.favorite = true
+        item.id = Math.floor(1000000 + Math.random() * 9000000)
+        favoriteNews.value.push(item)
       } else {
-        const itemIndex = favoriteNews.value.findIndex((favItem) => favItem === itemMore);
-        if (itemIndex !== -1) {
-          favoriteNews.value.splice(itemIndex, 1);
-          itemMore.favorite = false;
-        }
+        item.favorite = false
       }
+      // const itemMore = newsMoreRead.value[index];
+      // if(props.isFeed === 2) {
+      //   itemMore.favorite = false;
+      //   console.log(index);
+      // } else {
+  
+      //   if (!itemMore.favorite) {
+          
+      //     favoriteNews.value.push(itemMore);
+      //     itemMore.favorite = true;
+      //   } else {
+      //     const itemIndex = favoriteNews.value.findIndex((favItem) => favItem === itemMore);
+      //     if (itemIndex !== -1) {
+      //       favoriteNews.value.splice(itemIndex, 1);
+      //       itemMore.favorite = false;
+      //     }
+      //   }
+      // }
     }
 
     const formatDate = (item) =>  {
@@ -148,6 +157,6 @@ export default {
 }
 
 .removed {
-  line-height: 15px !important;
+  line-height: 22px !important;
 }
 </style>

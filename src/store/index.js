@@ -19,7 +19,6 @@ export default createStore({
       state.news = data
     },
     GET_NEWS_MORE_READ(state, data) {
-      console.log(data);
       state.newsMoreRead = data
     },
     POST_FAVORITE(state, data) {
@@ -45,7 +44,6 @@ export default createStore({
         .then(response => {
           const { data } = response
           const { articles } = data
-          console.log("response", articles);
           store.commit('GET_NEWS_MORE_READ', articles)
           return articles
         })
@@ -53,7 +51,6 @@ export default createStore({
     },
     postFavorite(item) {
       const store = useStore()
-      console.log(store)
       store.commit('POST_FAVORITE', item)
     }
   },

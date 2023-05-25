@@ -3,7 +3,7 @@
     <div class="banner-container">
 
       <v-card max-height="300px" height="300" flat class="roundel lessBan ml-4">
-        <v-img src="https://img.freepik.com/vetores-gratis/fundo-do-boletim-de-noticias-da-terra-de-tecnologia-global_1017-33687.jpg"></v-img>
+        <v-img style="transform:scale(1.5)" src="https://img.freepik.com/vetores-gratis/fundo-do-boletim-de-noticias-da-terra-de-tecnologia-global_1017-33687.jpg"></v-img>
       </v-card>
       <div class="cards">
         <v-card v-for="card in links" :key="card" min-width="100" height="102" style="background: #8FBF9F" class="card">
@@ -19,7 +19,7 @@
           <v-card min-width="100" flat class="lessBan">
             <!--<v-img
               :src="card.image"
-              cover
+              cover x
             ></v-img>
             <v-card-title style="white-space: initial; font-size: 10px">
               {{card.title}}
