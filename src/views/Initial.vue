@@ -1,90 +1,95 @@
 <template>
   <v-app class="banner">
-    <v-card max-height="300px" height="300" flat class="roundel lessBan ml-4">oal</v-card>
-    <div class="cards">
-      <v-card v-for="card in links" :key="card" min-width="100" height="102" style="background: #8FBF9F" class="card">
-        <v-col class="d-flex flex-column justify-space-around align-center mt-4">
-          <v-icon class="pr-5 ml-5">{{card.icon}}</v-icon>
-          <span class="f-size-12 mt-3">{{ card.name }}</span>
-        </v-col>
+    <div class="banner-container">
+
+      <v-card max-height="300px" height="300" flat class="roundel lessBan ml-4">
+        <v-img src="https://img.freepik.com/vetores-gratis/fundo-do-boletim-de-noticias-da-terra-de-tecnologia-global_1017-33687.jpg"></v-img>
       </v-card>
-    </div>
-    <v-col>
-      <h3>Mais lidas</h3> 
-      <div v-for="card in dataFeed" :key="card" class="mt-3">
-        <v-card min-width="100" flat class="lessBan">
-          <!--<v-img
-            :src="card.image"
-            cover
-          ></v-img>
-          <v-card-title style="white-space: initial; font-size: 10px">
-            {{card.title}}
-          </v-card-title> -->
-            <div class="d-flex flex-no-wrap justify-space-between">
-              <v-avatar
-                class=""
-                size="125"
-                rounded="0"
-              >
-                <v-img
-                  :src="card.image"
-                  cover
-                ></v-img>
-              </v-avatar>
-              <div>
-                <v-card-title class="f-size-12 tesst">
-                  <p>{{card.title}}</p>
-                </v-card-title>
-
-                <v-card-subtitle class="f-size-10 tesst">
-                  {{card.description}}
-                </v-card-subtitle>
-
-                <!-- <v-card-actions>
-                  <v-btn
-                    class=""
-                    icon=""
-                    variant="text"
-                  ></v-btn>
-                </v-card-actions> -->
-              </div>
-
-            </div>
+      <div class="cards">
+        <v-card v-for="card in links" :key="card" min-width="100" height="102" style="background: #8FBF9F" class="card">
+          <v-col class="d-flex flex-column justify-space-around align-center mt-4">
+            <v-icon class="pr-5 ml-5">{{card.icon}}</v-icon>
+            <span class="f-size-12 mt-3">{{ card.name }}</span>
+          </v-col>
         </v-card>
       </div>
-    </v-col>
+      <v-col>
+        <h3>Mais lidas</h3> 
+        <div v-for="card in dataFeed" :key="card" class="mt-3">
+          <v-card min-width="100" flat class="lessBan">
+            <!--<v-img
+              :src="card.image"
+              cover
+            ></v-img>
+            <v-card-title style="white-space: initial; font-size: 10px">
+              {{card.title}}
+            </v-card-title> -->
+              <div class="d-flex flex-no-wrap justify-space-between">
+                <v-avatar
+                  class=""
+                  size="125"
+                  rounded="0"
+                >
+                  <v-img
+                    :src="card.image"
+                    cover
+                  ></v-img>
+                </v-avatar>
+                <div>
+                  <v-card-title class="f-size-12 tesst">
+                    <p>{{card.title}}</p>
+                  </v-card-title>
 
-    <v-col>
-      <h3>Feed</h3>
-      <v-row>
-        <v-col :cols="6" v-for="card in dataFeedSecond" :key="card" class="">
-          <v-card flat class="lessBan">
-            <div class="d-flex flex-no-wrap justify-space-between flex-column">
-              <v-avatar
-                class=""
-                :style="{ width: '100%', height: '100%' }"
-                rounded="0"
-              >
-                <v-img
-                  :src="card.image"
-                  cover
-                  :style="{ width: '100%', height: '100%' }"
-                ></v-img>
-              </v-avatar>
-              <div>
-                <v-card-title class="f-size-12 tesst">
-                  <p>{{card.title}}</p>
-                </v-card-title>
+                  <v-card-subtitle class="f-size-10 tesst">
+                    {{card.description}}
+                  </v-card-subtitle>
 
-                <v-card-subtitle class="f-size-10 tesst">
-                  {{card.description}}
-                </v-card-subtitle>
+                  <!-- <v-card-actions>
+                    <v-btn
+                      class=""
+                      icon=""
+                      variant="text"
+                    ></v-btn>
+                  </v-card-actions> -->
+                </div>
+
               </div>
-            </div>
           </v-card>
-        </v-col>
-      </v-row>
-    </v-col>
+        </div>
+      </v-col>
+
+      <v-col>
+        <h3>Feed</h3>
+        <v-row>
+          <v-col :cols="6" v-for="card in dataFeedSecond" :key="card" class="">
+            <v-card flat class="lessBan">
+              <div class="d-flex flex-no-wrap justify-space-between flex-column">
+                <v-avatar
+                  class=""
+                  :style="{ width: '100%', height: '100%' }"
+                  rounded="0"
+                >
+                  <v-img
+                    :src="card.image"
+                    cover
+                    :style="{ width: '100%', height: '100%' }"
+                  ></v-img>
+                </v-avatar>
+                <div>
+                  <v-card-title class="f-size-12 tesst">
+                    <p>{{card.title}}</p>
+                  </v-card-title>
+
+                  <v-card-subtitle class="f-size-10 tesst">
+                    {{card.description}}
+                  </v-card-subtitle>
+                </div>
+              </div>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-col>
+    </div>
   </v-app>
 </template>
 
@@ -156,7 +161,7 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style scoped lang="scss">
 .roundel {
   border-bottom-left-radius: 115px !important;
 }
@@ -197,6 +202,15 @@ export default {
 .tesst {
   line-height: 15px;
   white-space: initial;
+}
+.banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &-container {
+    max-width: 500px;
+    margin: auto;
+  }
 }
 
 </style>
